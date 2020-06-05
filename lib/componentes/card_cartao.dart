@@ -76,7 +76,7 @@ class CardCartao extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '${cartao.nome.toUpperCase()}',
+                  '${cartao.titular.toUpperCase()}',
                   style: TextStyle(
                     fontSize: 20,
                   ),
