@@ -1,4 +1,3 @@
-import 'package:cardmanager/componentes/cartao.dart';
 import 'package:flutter/material.dart';
 
 class TelaPrincipal extends StatelessWidget {
@@ -9,11 +8,9 @@ class TelaPrincipal extends StatelessWidget {
         builder: (context, constraints) {
           return SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
-                children: <Widget>[
-                  Cartao(),
-                ],
+                children: <Widget>[],
               ),
             ),
           );

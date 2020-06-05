@@ -7,7 +7,12 @@ class TelaBoasVindas extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SafeArea(
-            child: Container(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: <Widget>[],
+              ),
+            ),
           );
         },
       ),
