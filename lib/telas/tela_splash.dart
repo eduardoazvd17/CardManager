@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cardmanager/modelos/usuario.dart';
 import 'package:cardmanager/telas/tela_boas_vindas.dart';
 import 'package:cardmanager/telas/tela_principal.dart';
 import 'package:flutter/material.dart';
@@ -9,21 +12,22 @@ class TelaSplash extends StatefulWidget {
 }
 
 class _TelaSplashState extends State<TelaSplash> {
-  Future<bool> isPrimeiraVez() async {
+  Future<Usuario> buscarUsuario() async {
     var prefs = await SharedPreferences.getInstance();
-    bool isPrimeraVez = prefs.getBool('isPrimeiraVez');
-    if (isPrimeraVez == null || isPrimeraVez) {
-      prefs.setBool('isPrimeiraVez', false);
+    var u = prefs.get('usuario');
+    Usuario usuario;
+    if (u != null) {
+      usuario = Usuario.fromJson(json.decode(u));
     }
-    return isPrimeraVez;
+    return usuario;
   }
 
   @override
   void initState() {
     super.initState();
-    isPrimeiraVez().then((isPrimeiraVez) {
+    buscarUsuario().then((usuario) {
       Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
-        if (isPrimeiraVez == null || isPrimeiraVez) {
+        if (usuario == null) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (_) => TelaBoasVindas(),
@@ -32,7 +36,7 @@ class _TelaSplashState extends State<TelaSplash> {
         } else {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (_) => TelaPrincipal(),
+              builder: (_) => TelaPrincipal(usuario),
             ),
           );
         }
@@ -46,7 +50,7 @@ class _TelaSplashState extends State<TelaSplash> {
       body: Center(
         child: Icon(
           Icons.credit_card,
-          size: 80,
+          size: MediaQuery.of(context).size.width * 0.25,
         ),
       ),
     );

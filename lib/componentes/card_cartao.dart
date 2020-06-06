@@ -6,6 +6,8 @@ class CardCartao extends StatelessWidget {
   CardCartao(this.cartao);
   @override
   Widget build(BuildContext context) {
+    double larguraMax = MediaQuery.of(context).size.width;
+
     return Container(
       decoration: new BoxDecoration(
         color: Theme.of(context).primaryColor,
@@ -21,11 +23,13 @@ class CardCartao extends StatelessWidget {
           Text(
             '${cartao.numero}',
             style: TextStyle(
-              fontSize: 30,
+              fontSize: larguraMax * 0.065,
+              color: Colors.white,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+            padding: EdgeInsets.symmetric(
+                horizontal: larguraMax * 0.06, vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -35,13 +39,15 @@ class CardCartao extends StatelessWidget {
                     Text(
                       'VALIDADE:',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: larguraMax * 0.037,
+                        color: Colors.white70,
                       ),
                     ),
                     Text(
                       '${cartao.mesVencimento}/${cartao.anoVencimento}',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: larguraMax * 0.037,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -53,13 +59,15 @@ class CardCartao extends StatelessWidget {
                     Text(
                       'CÓDIGO DE SEGURANÇA:',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: larguraMax * 0.037,
+                        color: Colors.white70,
                       ),
                     ),
                     Text(
                       '${cartao.codigoSeguranca}',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: larguraMax * 0.037,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -68,20 +76,23 @@ class CardCartao extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
+            padding: EdgeInsets.symmetric(horizontal: larguraMax * 0.06),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  '${cartao.titular.toUpperCase()}',
-                  style: TextStyle(
-                    fontSize: 20,
+                Expanded(
+                  child: Text(
+                    '${cartao.titular.toUpperCase()}',
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: larguraMax * 0.045,
+                    ),
                   ),
                 ),
-                Icon(Icons.credit_card, size: 60),
+                Icon(Icons.credit_card, size: larguraMax * 0.15),
               ],
             ),
           ),
