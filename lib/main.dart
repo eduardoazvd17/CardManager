@@ -16,9 +16,12 @@ class MyApp extends StatelessWidget {
         }
       },
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Gerenciador de Cartões',
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+        ),
         home: TelaSplash(),
       ),
     );

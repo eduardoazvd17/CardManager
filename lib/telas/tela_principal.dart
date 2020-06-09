@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cardmanager/componentes/card_cartao.dart';
 import 'package:cardmanager/modelos/usuario.dart';
+import 'package:cardmanager/telas/tela_adicionar_cartao.dart';
 import 'package:cardmanager/utilitarios/validador.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     });
   }
 
-  _adicionarCartao(BuildContext context) {
+  _adicionarCartao(BuildContext context, bool isEditar) {
     var v = Validador(context);
     if (usuario.exibirInformacoes == false) {
       v.mostrarDialogoOK(
@@ -37,6 +38,26 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       );
       return;
     }
+
+    if (isEditar) {
+      if (usuario.cartoes.length == 0) {
+        v.mostrarDialogoOK(
+          'Adicione um cartão',
+          'Você não possui nenhum cartão adicionado.',
+        );
+        return;
+      }
+    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TelaAdicionarCartao(
+          usuario: usuario,
+          atualizarUsuario: _atualizarUsuario,
+          indexCartaoSelecionado: isEditar ? _indexCartaoSelecionado : null,
+        ),
+      ),
+    );
   }
 
   _informacoesDetalhadas(BuildContext context) {
@@ -45,6 +66,14 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       v.mostrarDialogoOK(
         'Desbloqueio Necessário',
         'Você precisa desbloquear o app para visualizar ou fazer alterações.',
+      );
+      return;
+    }
+
+    if (usuario.cartoes.length == 0) {
+      v.mostrarDialogoOK(
+        'Adicione um cartão',
+        'Você não possui nenhum cartão adicionado.',
       );
       return;
     }
@@ -59,11 +88,23 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       );
       return;
     }
+
+    if (usuario.cartoes.length == 0) {
+      v.mostrarDialogoOK(
+        'Adicione um cartão',
+        'Você não possui nenhum cartão adicionado.',
+      );
+      return;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _adicionarCartao(context, false),
+        child: Icon(Icons.add),
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SafeArea(
@@ -151,7 +192,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: InkWell(
-                                onTap: () => _adicionarCartao(context),
+                                onTap: () => _adicionarCartao(context, false),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.grey,
@@ -218,6 +259,12 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                           onTap: () => _senhas(context),
                           leading: Icon(Icons.vpn_key),
                           title: Text('Senhas'),
+                        ),
+                        Divider(),
+                        ListTile(
+                          onTap: () => _adicionarCartao(context, true),
+                          leading: Icon(Icons.edit),
+                          title: Text('Editar Cartão'),
                         ),
                       ],
                     ),
