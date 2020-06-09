@@ -40,6 +40,8 @@ class TelaBoasVindas extends StatelessWidget {
       nome: nome,
       senha: senha,
     );
+
+    //TODO: Criptografar usuario utilizando a senha inserida.
     prefs.setString('usuario', json.encode(usuario.toJson()));
 
     v.ocultarCarregamento();

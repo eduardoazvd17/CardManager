@@ -1,4 +1,5 @@
 class Cartao {
+  String nome;
   String numero;
   String titular;
   String codigoSeguranca;
@@ -9,6 +10,7 @@ class Cartao {
   String senha8;
 
   Cartao({
+    this.nome,
     this.anoVencimento,
     this.codigoSeguranca,
     this.mesVencimento,
@@ -17,6 +19,7 @@ class Cartao {
   });
 
   Cartao.fromJson(Map cartaoMap) {
+    this.nome = cartaoMap['nome'];
     this.numero = cartaoMap['numero'];
     this.titular = cartaoMap['titular'];
     this.codigoSeguranca = cartaoMap['codigoSeguranca'];
@@ -29,6 +32,7 @@ class Cartao {
 
   toJson() {
     Map<String, dynamic> cartaoMap = {};
+    cartaoMap.putIfAbsent('nome', () => nome);
     cartaoMap.putIfAbsent('numero', () => numero);
     cartaoMap.putIfAbsent('titular', () => titular);
     cartaoMap.putIfAbsent('codigoSeguranca', () => codigoSeguranca);

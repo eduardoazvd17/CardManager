@@ -2,8 +2,9 @@ import 'package:cardmanager/modelos/cartao.dart';
 import 'package:flutter/material.dart';
 
 class CardCartao extends StatelessWidget {
+  final bool exibirInformacoes;
   final Cartao cartao;
-  CardCartao(this.cartao);
+  CardCartao(this.cartao, this.exibirInformacoes);
   @override
   Widget build(BuildContext context) {
     double larguraMax = MediaQuery.of(context).size.width;
