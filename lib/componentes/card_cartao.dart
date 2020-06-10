@@ -22,7 +22,7 @@ class CardCartao extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            '${cartao.numero}',
+            exibirInformacoes ? '${cartao.numero}' : '${cartao.numeroOculto()}',
             style: TextStyle(
               fontSize: larguraMax * 0.065,
               color: Colors.white,
@@ -45,7 +45,7 @@ class CardCartao extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${cartao.dataVencimento}',
+                      exibirInformacoes ? '${cartao.dataVencimento}' : '••/••',
                       style: TextStyle(
                         fontSize: larguraMax * 0.037,
                         color: Colors.white,
@@ -65,7 +65,7 @@ class CardCartao extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${cartao.codigoSeguranca}',
+                      exibirInformacoes ? '${cartao.codigoSeguranca}' : '•••',
                       style: TextStyle(
                         fontSize: larguraMax * 0.037,
                         color: Colors.white,

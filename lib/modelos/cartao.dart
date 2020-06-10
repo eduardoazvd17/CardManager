@@ -16,6 +16,14 @@ class Cartao {
     this.numero,
   });
 
+  String numeroOculto() {
+    String n = this.numero[16].toString() +
+        this.numero[17].toString() +
+        this.numero[18].toString() +
+        this.numero[19].toString();
+    return '•••• •••• •••• ' + n;
+  }
+
   atualizar(Cartao novo) {
     this.nome = novo.nome;
     this.numero = novo.numero;
