@@ -162,8 +162,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                                         actions: <Widget>[
                                           FlatButton(
                                             onPressed: () {
+                                              //TODO: Usar criptografia.
                                               if (senhaController.text ==
                                                   usuario.senha) {
+                                                usuario.senhaTemp =
+                                                    senhaController.text;
                                                 usuario.exibirInformacoes =
                                                     !usuario.exibirInformacoes;
                                                 _atualizarUsuario(usuario);

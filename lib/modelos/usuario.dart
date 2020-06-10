@@ -3,6 +3,7 @@ import 'package:cardmanager/modelos/cartao.dart';
 class Usuario {
   String nome;
   String senha;
+  String senhaTemp;
   bool exibirInformacoes = false;
   List<Cartao> cartoes = [];
 
