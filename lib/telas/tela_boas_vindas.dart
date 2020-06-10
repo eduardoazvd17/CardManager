@@ -36,6 +36,7 @@ class TelaBoasVindas extends StatelessWidget {
     v.mostrarCarregamento('Carregando...');
 
     var prefs = await SharedPreferences.getInstance();
+    //TODO: Criptografar a senha em md5 hash.
     var usuario = Usuario(
       nome: nome,
       senha: senha,
@@ -51,8 +52,6 @@ class TelaBoasVindas extends StatelessWidget {
         builder: (_) => TelaPrincipal(usuario),
       ),
     );
-
-    //TODO: Faz o registro.
   }
 
   @override
