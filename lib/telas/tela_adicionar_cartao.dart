@@ -27,13 +27,59 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
 
   _enviar(BuildContext context) {
     var v = Validador(context);
-    //TODO: Adicionar cartão e atualizar usuario
+    String nome = nomeController.text;
+    String numero = numeroController.text;
+    String titular = titularController.text;
+    String data = dataController.text;
+    String codigo = codigoController.text;
+
+    if (v.isVazio(nome) ||
+        v.isVazio(numero) ||
+        v.isVazio(titular) ||
+        v.isVazio(data) ||
+        v.isVazio(codigo)) {
+      v.mostrarDialogoOK(
+        'Campos Vazios',
+        'Preencha todos os campos para continuar.',
+      );
+      return;
+    }
+
+    if (numero.length < 19 || data.length < 5 || codigo.length < 3) {
+      v.mostrarDialogoOK(
+        'Cartão Inválido',
+        'Preencha todos os campos corretamente.',
+      );
+      return;
+    }
+
+    var cartao = Cartao(
+      nome: nome,
+      numero: numero,
+      titular: titular,
+      dataVencimento: data,
+      codigoSeguranca: codigo,
+    );
+    if (widget.indexCartaoSelecionado == null) {
+      widget.usuario.adicionarCartao(cartao);
+    } else {
+      widget.usuario.cartoes[widget.indexCartaoSelecionado].atualizar(cartao);
+    }
+    widget.atualizarUsuario(widget.usuario);
+    Navigator.of(context).pop();
   }
 
   @override
   void initState() {
     super.initState();
-    //TODO: se for editar exibir os dados nos controllers
+    if (widget.indexCartaoSelecionado != null) {
+      var cartao = widget.usuario.cartoes[widget.indexCartaoSelecionado];
+      nomeController.text = cartao.nome;
+      numeroController.text = cartao.numero;
+      titularController.text = cartao.titular;
+      dataController.text = cartao.dataVencimento;
+      codigoController.text = cartao.codigoSeguranca;
+    }
   }
 
   @override

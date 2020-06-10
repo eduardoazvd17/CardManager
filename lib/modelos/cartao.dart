@@ -16,6 +16,20 @@ class Cartao {
     this.numero,
   });
 
+  atualizar(Cartao novo) {
+    this.nome = novo.nome;
+    this.numero = novo.numero;
+    this.titular = novo.titular;
+    this.codigoSeguranca = novo.codigoSeguranca;
+    this.dataVencimento = novo.dataVencimento;
+  }
+
+  atualizarSenhas(Cartao novo) {
+    this.senha4 = novo.senha4;
+    this.senha6 = novo.senha6;
+    this.senha8 = novo.senha8;
+  }
+
   Cartao.fromJson(Map cartaoMap) {
     this.nome = cartaoMap['nome'];
     this.numero = cartaoMap['numero'];
