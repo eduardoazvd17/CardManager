@@ -3,17 +3,15 @@ class Cartao {
   String numero;
   String titular;
   String codigoSeguranca;
-  String mesVencimento;
-  String anoVencimento;
+  String dataVencimento;
   String senha4;
   String senha6;
   String senha8;
 
   Cartao({
     this.nome,
-    this.anoVencimento,
     this.codigoSeguranca,
-    this.mesVencimento,
+    this.dataVencimento,
     this.titular,
     this.numero,
   });
@@ -23,8 +21,7 @@ class Cartao {
     this.numero = cartaoMap['numero'];
     this.titular = cartaoMap['titular'];
     this.codigoSeguranca = cartaoMap['codigoSeguranca'];
-    this.mesVencimento = cartaoMap['mesVencimento'];
-    this.anoVencimento = cartaoMap['anoVencimento'];
+    this.dataVencimento = cartaoMap['dataVencimento'];
     this.senha4 = cartaoMap['senha4'];
     this.senha6 = cartaoMap['senha6'];
     this.senha8 = cartaoMap['senha8'];
@@ -36,8 +33,7 @@ class Cartao {
     cartaoMap.putIfAbsent('numero', () => numero);
     cartaoMap.putIfAbsent('titular', () => titular);
     cartaoMap.putIfAbsent('codigoSeguranca', () => codigoSeguranca);
-    cartaoMap.putIfAbsent('mesVencimento', () => mesVencimento);
-    cartaoMap.putIfAbsent('anoVencimento', () => anoVencimento);
+    cartaoMap.putIfAbsent('dataVencimento', () => dataVencimento);
     cartaoMap.putIfAbsent('senha4', () => senha4);
     cartaoMap.putIfAbsent('senha6', () => senha6);
     cartaoMap.putIfAbsent('senha8', () => senha8);

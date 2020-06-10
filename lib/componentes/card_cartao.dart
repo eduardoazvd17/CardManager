@@ -45,7 +45,7 @@ class CardCartao extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${cartao.mesVencimento}/${cartao.anoVencimento}',
+                      '${cartao.dataVencimento}',
                       style: TextStyle(
                         fontSize: larguraMax * 0.037,
                         color: Colors.white,
