@@ -29,9 +29,32 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     });
   }
 
-  _adicionarCartao(BuildContext context, bool isEditar) {
+  _removerCartao(BuildContext context) {
     var v = Validador(context);
     if (usuario.exibirInformacoes == false) {
+      v.mostrarDialogoOK(
+        'Desbloqueio Necessário',
+        'Você precisa desbloquear o app para visualizar ou fazer alterações.',
+      );
+      return;
+    }
+
+    v.mostrarDialogoSN(
+      titulo: 'Excluir Cartão',
+      mensagem:
+          'Deseja realmente apagar o cartão: ${usuario.cartoes[_indexCartaoSelecionado].nome}?',
+      sim: () {
+        usuario.removerCartao(usuario.cartoes[_indexCartaoSelecionado]);
+        _atualizarUsuario(usuario);
+        Navigator.of(context).pop();
+      },
+      nao: () => Navigator.of(context).pop(),
+    );
+  }
+
+  _adicionarCartao(BuildContext context, bool isEditar) {
+    var v = Validador(context);
+    if (usuario.exibirInformacoes == false && isEditar == true) {
       v.mostrarDialogoOK(
         'Desbloqueio Necessário',
         'Você precisa desbloquear o app para visualizar ou fazer alterações.',
@@ -192,7 +215,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       usuario.cartoes.length == 0
                           ? Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                                  const EdgeInsets.symmetric(horizontal: 35),
                               child: InkWell(
                                 onTap: () => _adicionarCartao(context, false),
                                 child: Container(
@@ -201,7 +224,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                                     borderRadius: new BorderRadius.circular(16),
                                   ),
                                   width: double.infinity,
-                                  height: 250,
+                                  height: 200,
                                   child: Center(
                                     child: Icon(
                                       Icons.add_circle_outline,
@@ -248,26 +271,78 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 30),
-                        ListTile(
-                          onTap: () => _informacoesDetalhadas(context),
-                          leading: Icon(
-                            Icons.remove_red_eye,
-                          ),
-                          title: Text('Informações Detalhadas'),
-                        ),
-                        Divider(),
-                        ListTile(
-                          onTap: () => _senhas(context),
-                          leading: Icon(Icons.vpn_key),
-                          title: Text('Senhas'),
-                        ),
-                        Divider(),
-                        ListTile(
-                          onTap: () => _adicionarCartao(context, true),
-                          leading: Icon(Icons.edit),
-                          title: Text('Editar Cartão'),
-                        ),
+                        SizedBox(height: usuario.cartoes.length == 0 ? 40 : 30),
+                        usuario.cartoes.length == 0
+                            ? Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          'Para exibir as opções, antes você precisa adicionar um cartão. Utilize o cartão cinza acima, ou o botão flutuante no fim da tela para ir à tela de adição de cartões.',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(fontSize: 22),
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Icon(
+                                        Icons.credit_card,
+                                        size: 50,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(),
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          'Para realizar qualquer alteração ou exibir as informações ocultas, será necessário desbloquear utilizando o cadeado no canto superior direito.',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(fontSize: 22),
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Icon(
+                                        Icons.lock,
+                                        size: 50,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    onTap: () =>
+                                        _informacoesDetalhadas(context),
+                                    leading: Icon(
+                                      Icons.remove_red_eye,
+                                    ),
+                                    title: Text('Informações Detalhadas'),
+                                  ),
+                                  Divider(),
+                                  ListTile(
+                                    onTap: () => _senhas(context),
+                                    leading: Icon(Icons.vpn_key),
+                                    title: Text('Senhas'),
+                                  ),
+                                  Divider(),
+                                  ListTile(
+                                    onTap: () =>
+                                        _adicionarCartao(context, true),
+                                    leading: Icon(Icons.edit),
+                                    title: Text('Editar Cartão'),
+                                  ),
+                                  Divider(),
+                                  ListTile(
+                                    onTap: () => _removerCartao(context),
+                                    leading: Icon(Icons.close),
+                                    title: Text('Remover Cartão'),
+                                  ),
+                                ],
+                              ),
                       ],
                     ),
                   ),
