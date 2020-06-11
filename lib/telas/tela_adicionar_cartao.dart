@@ -130,7 +130,7 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
                 ),
                 SizedBox(height: 35),
                 Text(
-                  'Nome do Cartão:',
+                  'Identificação:',
                   style: TextStyle(fontSize: 16),
                 ),
                 TextField(
