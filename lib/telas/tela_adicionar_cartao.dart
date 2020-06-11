@@ -233,7 +233,9 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'Enviar',
+                            widget.indexCartaoSelecionado == null
+                                ? 'Enviar'
+                                : 'Salvar',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,

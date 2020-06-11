@@ -146,7 +146,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                                       final senhaController =
                                           TextEditingController();
                                       return AlertDialog(
-                                        title: Text('Desbloquear'),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[

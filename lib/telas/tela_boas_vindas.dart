@@ -105,6 +105,7 @@ class TelaBoasVindas extends StatelessWidget {
                           textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
                             hintText: 'Insira seu nome',
+                            suffixIcon: Icon(Icons.person),
                           ),
                         ),
                         Text(
@@ -118,6 +119,7 @@ class TelaBoasVindas extends StatelessWidget {
                           controller: senhaController,
                           decoration: InputDecoration(
                             hintText: 'Insira sua senha',
+                            suffixIcon: Icon(Icons.vpn_key),
                           ),
                         ),
                         SizedBox(height: 10),
@@ -126,6 +128,7 @@ class TelaBoasVindas extends StatelessWidget {
                           controller: confirmacaoSenhaController,
                           decoration: InputDecoration(
                             hintText: 'Confirme sua senha',
+                            suffixIcon: Icon(Icons.vpn_key),
                           ),
                         ),
                         SizedBox(height: 10),

@@ -25,7 +25,7 @@ class CardCartao extends StatelessWidget {
           Text(
             exibirInformacoes ? '${cartao.numero}' : '${cartao.numeroOculto()}',
             style: TextStyle(
-              fontSize: larguraMax * 0.065,
+              fontSize: larguraMax * 0.0635,
               color: Colors.white,
             ),
           ),
@@ -46,7 +46,9 @@ class CardCartao extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      exibirInformacoes ? '${cartao.dataVencimento}' : '••/••',
+                      exibirInformacoes
+                          ? '${cartao.dataVencimento}'
+                          : '• • / • •',
                       style: TextStyle(
                         fontSize: larguraMax * 0.037,
                         color: Colors.white,
@@ -66,7 +68,7 @@ class CardCartao extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      exibirInformacoes ? '${cartao.codigoSeguranca}' : '•••',
+                      exibirInformacoes ? '${cartao.codigoSeguranca}' : '• • •',
                       style: TextStyle(
                         fontSize: larguraMax * 0.037,
                         color: Colors.white,

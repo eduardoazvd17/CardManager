@@ -25,7 +25,7 @@ class Cartao {
         this.numero[16].toString() +
         this.numero[17].toString() +
         this.numero[18].toString();
-    return '•••• •••• •••• ' + n;
+    return '••••   ••••   ••••   ' + n;
   }
 
   atualizar(Cartao novo) {
@@ -34,6 +34,7 @@ class Cartao {
     this.titular = novo.titular;
     this.codigoSeguranca = novo.codigoSeguranca;
     this.dataVencimento = novo.dataVencimento;
+    this.bandeira = novo.bandeira;
   }
 
   atualizarSenhas(Cartao novo) {
