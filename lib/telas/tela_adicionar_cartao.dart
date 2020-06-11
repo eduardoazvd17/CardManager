@@ -1,3 +1,4 @@
+import 'package:cardmanager/modelos/bandeira.dart';
 import 'package:cardmanager/modelos/cartao.dart';
 import 'package:cardmanager/modelos/usuario.dart';
 import 'package:cardmanager/utilitarios/validador.dart';
@@ -24,6 +25,7 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
   var titularController = TextEditingController();
   var dataController = TextEditingController();
   var codigoController = TextEditingController();
+  Bandeira bandeiraSelecionada;
 
   _enviar(BuildContext context) {
     var v = Validador(context);
@@ -37,7 +39,8 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
         v.isVazio(numero) ||
         v.isVazio(titular) ||
         v.isVazio(data) ||
-        v.isVazio(codigo)) {
+        v.isVazio(codigo) ||
+        v.isVazio(bandeiraSelecionada)) {
       v.mostrarDialogoOK(
         'Campos Vazios',
         'Preencha todos os campos para continuar.',
@@ -59,6 +62,7 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
       titular: titular,
       dataVencimento: data,
       codigoSeguranca: codigo,
+      bandeira: bandeiraSelecionada,
     );
     if (widget.indexCartaoSelecionado == null) {
       widget.usuario.adicionarCartao(cartao);
@@ -67,6 +71,19 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
     }
     widget.atualizarUsuario(widget.usuario);
     Navigator.of(context).pop();
+  }
+
+  List<DropdownMenuItem<Bandeira>> _getDropDownBandeiras() {
+    List<DropdownMenuItem<Bandeira>> bandeiras = [];
+    for (var b in Bandeira.values) {
+      bandeiras.add(
+        DropdownMenuItem(
+          value: b,
+          child: Text(b.descricao()),
+        ),
+      );
+    }
+    return bandeiras;
   }
 
   @override
@@ -79,6 +96,7 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
       titularController.text = cartao.titular;
       dataController.text = cartao.dataVencimento;
       codigoController.text = cartao.codigoSeguranca;
+      bandeiraSelecionada = cartao.bandeira;
     }
   }
 
@@ -172,13 +190,34 @@ class _TelaAdicionarCartaoState extends State<TelaAdicionarCartao> {
                   style: TextStyle(fontSize: 16),
                 ),
                 TextField(
-                  maxLength: 4,
+                  maxLength: 3,
                   controller: codigoController,
                   keyboardType: TextInputType.numberWithOptions(decimal: false),
                   decoration: InputDecoration(
                     hintText: 'Insira o código de segurança...',
                     suffixIcon: Icon(Icons.security),
                   ),
+                ),
+                SizedBox(height: 15),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Bandeira: ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    DropdownButton(
+                      hint: Text('Selecione uma bandeira'),
+                      value: bandeiraSelecionada,
+                      items: _getDropDownBandeiras(),
+                      onChanged: (b) {
+                        setState(
+                          () {
+                            bandeiraSelecionada = b;
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
                 SizedBox(height: 35),
                 Row(

@@ -1,3 +1,4 @@
+import 'package:cardmanager/modelos/bandeira.dart';
 import 'package:cardmanager/modelos/cartao.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +94,10 @@ class CardCartao extends StatelessWidget {
                     ),
                   ),
                 ),
-                Icon(Icons.credit_card, size: larguraMax * 0.15),
+                Image.asset(
+                  cartao.bandeira.imagem(),
+                  width: larguraMax * 0.15,
+                ),
               ],
             ),
           ),

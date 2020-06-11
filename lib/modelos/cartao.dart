@@ -1,3 +1,5 @@
+import 'package:cardmanager/modelos/bandeira.dart';
+
 class Cartao {
   String nome;
   String numero;
@@ -7,6 +9,7 @@ class Cartao {
   String senha4;
   String senha6;
   String senha8;
+  Bandeira bandeira;
 
   Cartao({
     this.nome,
@@ -14,13 +17,14 @@ class Cartao {
     this.dataVencimento,
     this.titular,
     this.numero,
+    this.bandeira,
   });
 
   String numeroOculto() {
-    String n = this.numero[16].toString() +
+    String n = this.numero[15].toString() +
+        this.numero[16].toString() +
         this.numero[17].toString() +
-        this.numero[18].toString() +
-        this.numero[19].toString();
+        this.numero[18].toString();
     return '•••• •••• •••• ' + n;
   }
 
@@ -47,6 +51,24 @@ class Cartao {
     this.senha4 = cartaoMap['senha4'];
     this.senha6 = cartaoMap['senha6'];
     this.senha8 = cartaoMap['senha8'];
+    String bandeiraString = cartaoMap['bandeira'];
+    switch (bandeiraString) {
+      case 'Bandeira.americanexpress':
+        this.bandeira = Bandeira.americanexpress;
+        break;
+      case 'Bandeira.elo':
+        this.bandeira = Bandeira.elo;
+        break;
+      case 'Bandeira.hipercard':
+        this.bandeira = Bandeira.hipercard;
+        break;
+      case 'Bandeira.mastercard':
+        this.bandeira = Bandeira.mastercard;
+        break;
+      case 'Bandeira.visa':
+        this.bandeira = Bandeira.visa;
+        break;
+    }
   }
 
   toJson() {
@@ -59,6 +81,7 @@ class Cartao {
     cartaoMap.putIfAbsent('senha4', () => senha4);
     cartaoMap.putIfAbsent('senha6', () => senha6);
     cartaoMap.putIfAbsent('senha8', () => senha8);
+    cartaoMap.putIfAbsent('bandeira', () => bandeira.toString());
     return cartaoMap;
   }
 }
