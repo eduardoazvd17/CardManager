@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:cardmanager/componentes/card_cartao.dart';
 import 'package:cardmanager/modelos/usuario.dart';
 import 'package:cardmanager/telas/tela_adicionar_cartao.dart';
+import 'package:cardmanager/telas/tela_informacoes_detalhadas.dart';
+import 'package:cardmanager/telas/tela_senhas.dart';
 import 'package:cardmanager/utilitarios/validador.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +42,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     }
 
     v.mostrarDialogoSN(
-      titulo: 'Excluir Cartão',
+      titulo: 'Remover Cartão',
       mensagem:
-          'Deseja realmente apagar o cartão: ${usuario.cartoes[_indexCartaoSelecionado].nome}?',
+          'Deseja realmente remover o cartão: ${usuario.cartoes[_indexCartaoSelecionado].nome}?',
       sim: () {
         usuario.removerCartao(usuario.cartoes[_indexCartaoSelecionado]);
         _atualizarUsuario(usuario);
@@ -100,6 +102,14 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       );
       return;
     }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TelaInformacoesDetalhadas(
+          cartao: usuario.cartoes[_indexCartaoSelecionado],
+        ),
+      ),
+    );
   }
 
   _senhas(BuildContext context) {
@@ -119,6 +129,16 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       );
       return;
     }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TelaSenhas(
+          usuario: usuario,
+          atualizarUsuario: _atualizarUsuario,
+          indexCartaoSelecionado: _indexCartaoSelecionado,
+        ),
+      ),
+    );
   }
 
   @override
@@ -196,7 +216,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                                               Navigator.of(context).pop();
                                             },
                                             child: Text(
-                                              'Enviar',
+                                              'Desbloquear',
                                               style: TextStyle(
                                                   color: Theme.of(context)
                                                       .primaryColor),
