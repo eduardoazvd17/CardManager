@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  local_auth: 0.6.2+3
   crypto: 2.1.4
   masked_text: ^0.0.6
   carousel_slider: ^2.1.0
